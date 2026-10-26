@@ -5,4 +5,5 @@
 *.duckdb
 *.parquet
 .env
+Module01/telemetry.csv
 __pycache__/
