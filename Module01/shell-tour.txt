@@ -1,0 +1,15 @@
+.tables
+reading
+.schema reading
+CREATE TABLE reading(machine TEXT, vib REAL);
+.mode column
+.headers on
+.timer on
+SELECT machine, max(vib) AS peak FROM reading GROUP BY machine;
+machine  peak
+-------  ----
+cnc-01    1.2
+cnc-02    2.4
+Run Time: real 0.000112 user 0.000000 sys 0.000000
+.timer off
+.echo off
