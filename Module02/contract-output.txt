@@ -1,6 +1,6 @@
 ﻿REJECTED legacy machine row: Input should be a valid date or datetime, input is too short 
 
-ACCEPTED: machine_id=1 serial_no='SN-88120' site='G├╝tersloh' installed=datetime.date(2019, 3, 11) 
+ACCEPTED: machine_id=1 serial_no='SN-88120' site='Gütersloh' installed=datetime.date(2019, 3, 11) 
 
 CREATE TABLE machine (
 	machine_id INTEGER NOT NULL, 
