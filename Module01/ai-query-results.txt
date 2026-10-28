@@ -1,0 +1,53 @@
+.mode column
+.headers on
+
+-- 1. RUN the LLM's query exactly as it was generated
+.timer on
+SELECT
+    machine,
+    AVG(spindle_load) AS avg_spindle_load
+FROM readings
+WHERE time(ts) > '18:00:00'
+GROUP BY machine
+ORDER BY avg_spindle_load DESC;
+machine   avg_spindle_load
+-------  ------------------
+cnc-03   60.434039449923603
+cnc-01   60.368453951937767
+cnc-02   60.357216280038891
+Run Time: real 0.025963 user 0.015625 sys 0.000000
+.timer off
+
+-- 2. PROFILE it: does SQLite read the whole table?
+EXPLAIN QUERY PLAN
+SELECT machine, AVG(spindle_load) AS avg_spindle_load
+FROM readings
+WHERE time(ts) > '18:00:00'
+GROUP BY machine
+ORDER BY avg_spindle_load DESC;
+QUERY PLAN
+|--SCAN readings
+|--USE TEMP B-TREE FOR GROUP BY
+`--USE TEMP B-TREE FOR ORDER BY
+
+-- 3. BREAK it: which hours does "after 18:00" really include?
+SELECT MIN(time(ts)) AS first_time_included, MAX(time(ts)) AS last_time_included
+FROM readings WHERE time(ts) > '18:00:00';
+first_time_included  last_time_included
+-------------------  ------------------
+18:00:03             23:59:57
+
+-- 4. My corrected version: night shift = 18:00 to 06:00 (crosses midnight)
+SELECT
+    machine,
+    AVG(spindle_load) AS avg_spindle_load
+FROM readings
+WHERE time(ts) >= '18:00:00' OR time(ts) < '06:00:00'
+GROUP BY machine
+ORDER BY avg_spindle_load DESC;
+machine   avg_spindle_load
+-------  ------------------
+cnc-02   60.205309027777773
+cnc-03   60.202458333333333
+cnc-01   60.184864583333336
+.output stdout

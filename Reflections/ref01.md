@@ -1,52 +1,29 @@
-# Reflection 1
-
-> This is the only reflection file that spells out the prompts. fill in the [short description here]
-> In the future, copy the [reflection template](TEMPLATE.md) to the respective refnn.md file
-> and write your answers there.
-> Remove this note.
-
-# Reflection template
-
-> Copy this file to `ref01.md`, `ref02.md`, … and replace each `[short description here]`
-> with your answer. Keep each section short — a few sentences is plenty.
+# Reflection 1 — Module 1: Introduction & Local-First Foundations
 
 ## Take-away
 
-What do you want to remember? What would be your advice?
-
-[short description here]
+A database in SQLite is just one file. The script that builds it is the recipe and the `.db` file is the dish: I commit the recipe and rebuild the dish whenever I need it. My advice: commit often with clear messages, and keep databases, CSVs and secrets out of Git with `.gitignore`.
 
 ## What was good?
 
-[short description here]
+Seeing real numbers come out of my own queries: 172,800 readings loaded in one file of about 10.5 MB, and the worn bearing of cnc-02 visible in the alarm counts.
 
 ## What was difficult?
 
-Where did you struggle? What was the root cause?
-
-[short description here]
+I started with no experience in databases, Git or the terminal. I created a file inside a duplicated `Module01/Module01` folder (relative paths), I first copied my README from the preview instead of the Markdown source, and I miscounted the rows twice before writing the units next to every number (s, readings, machines).
 
 ## Exploration and show stoppers
 
-Was there any good/fun “struggling” or exploration?
-Anything where you should reach out to peers or instructors?
-
-[short description here]
+Rebuilding a new database (`copia.db`) from the `.dump` file showed me why the scripts, not the `.db` files, are the real evidence.
 
 ## Interaction with peers and instructors
 
-[short description here]
+My pod: [Roberto Navia Guillén](https://github.com/RobertoNaviaGuillen/databases-portfolio), Levi, Ian and Sophia. I invited the instructor as a collaborator on my portfolio.
 
 ## How did you verify AI suggestions?
 
-What did you ask an AI, and how did you check the answer against a datasheet,
-a measurement, a packet capture, or a live test? Where was it wrong?
-
-[short description here]
+I asked ChatGPT for the average night-time spindle load per machine. The query ran, but by checking which hours its filter really included (`MIN`/`MAX` of `time(ts)`) I found that it ignored the hours after midnight. With a real night shift (18:00–06:00) the ranking of the machines changed. I also used Claude as a tutor to guide the setup step by step.
 
 ## Help and extra work
 
-Who helped you, gave feedback, and was it valuable?
-Who did you help? Did you present, implement, make a PR, or fix something crucial for the class?
-
-[short description here]
+Claude guided me through the setup (uv, Git, VS Code). I did the commits, ran every script and query myself and checked the results against my own calculations.
