@@ -57,7 +57,15 @@ Write the **requirements the schema forgot**: the business rules nobody encoded.
 
 Queries: [audit-queries.sql](audit-queries.sql) → results: [audit-results.txt](audit-results.txt)
 
-WIP
+| # | Defect | Proof (query result) | What breaks in production |
+|---|---|---|---|
+| 1 | Orphan job | job 3 points to `cnc-05`, which is not in `machine` | the job cannot be assigned to a site or a machine history; nobody knows where the bearing went |
+| 2 | Duplicate natural key | `P-1003` appears 2 times | stock counts and joins double; job 2 shows the coolant filter twice |
+| 3 | Price stored as text | "price < 15" returns only P-1001 (12.50); P-1003 (9.90) is missing because '9' sorts after '1' | wrong invoices and cost reports, with no error message |
+| 4 | Date that is not a date | `RANDOM-NAME` installed = `unknown` | maintenance intervals and machine age cannot be calculated |
+| 5 | m:n hidden in a text list | the join on `parts_used` loses job 1 (`P-1001,P-1002`) silently | every multi-part job disappears from part-usage reports |
+
+Forgotten business rules (LG5): every job must belong to an existing machine; a part number exists only once; prices are numbers ≥ 0; a job with `parts_used = NULL` is ambiguous (no parts used, or nobody wrote them down?).
 
 <a id="task-3"></a>
 ## Task 3 — Write the data contract in code
@@ -66,7 +74,10 @@ WIP
 
 [contract.py](contract.py) → output: [contract-output.txt](contract-output.txt)
 
-WIP
+- **Pydantic (the application's contract):** the legacy machine row with `installed = "unknown"` is **rejected** before it reaches the database, and a serial number must start with `SN-`.
+- **SQLAlchemy (the database's contract):** primary keys, `NOT NULL`, `UNIQUE(serial_no)`, `unit_price NUMERIC(9,2)`, a foreign key from `maint_job` to `machine`, and the junction table `job_part` with a composite key (`job_id`, `part_no`) that repairs the 1NF violation.
+
+**Model vs. database:** format rules (a real date, the `SN-` prefix) live in the **model**, because the application can give the user a clear error message before saving. Rules that protect the relations between tables (primary keys, `UNIQUE`, foreign keys) live in the **database**, because they must hold no matter which program or person writes the data.
 
 ## Reflection
 
