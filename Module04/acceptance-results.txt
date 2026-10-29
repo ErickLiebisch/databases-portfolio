@@ -1,0 +1,12 @@
+sensor_id  metric  value
+---------  ------  ------
+        1  temp_c  9000.0
+        1  temp_c  hot
+        2  bogus   -500.0
+Error near line 22: CHECK constraint failed: value BETWEEN -273.15 AND 5000
+Error near line 23: cannot store TEXT value in REAL column t_safe.value
+Error near line 24: CHECK constraint failed: metric IN ('temp_c','vib_rms','spindle_load')
+sensor_id  metric  value
+---------  ------  ------
+        3  temp_c
+        4  temp_c  4999.0

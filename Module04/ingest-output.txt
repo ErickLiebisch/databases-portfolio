@@ -1,0 +1,2 @@
+﻿rows in file: 10 | readings before: 1 | after: 10
+rows in file: 10 | readings before: 10 | after: 10

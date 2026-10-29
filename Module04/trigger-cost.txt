@@ -1,0 +1,2 @@
+﻿without trigger: runs [6.0, 6.0, 6.0] ms | median 6.0 ms | alarms 0
+with trigger   : runs [11.8, 11.8, 11.7] ms | median 11.8 ms | alarms 1000

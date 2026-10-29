@@ -1,0 +1,15 @@
+--- report readers see the view:
+machine_id  metric   peak  n
+----------  -------  ----  -
+cnc-01      temp_c   42.3  5
+cnc-01      vib_rms   1.4  6
+--- readings before:
+readings
+--------
+      11
+--- try to delete everything (must fail):
+Error near line 10: attempt to write a readonly database
+--- readings after:
+readings
+--------
+      11

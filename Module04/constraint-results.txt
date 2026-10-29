@@ -1,0 +1,11 @@
+Error near line 12: CHECK constraint failed: value >= -273.15 AND value <= 5000
+Error near line 14: cannot store TEXT value in REAL column reading.value
+Error near line 16: FOREIGN KEY constraint failed
+Error near line 18: UNIQUE constraint failed: sensor.machine_id, sensor.metric
+sensor_id  machine_id  metric   unit
+---------  ----------  -------  ----
+        1  cnc-01      temp_c   degC
+        2  cnc-01      vib_rms  mm/s
+reading_id  sensor_id          ts           value  interval_s  energy_j
+----------  ---------  -------------------  -----  ----------  --------
+         1          1  2026-03-01 08:00:00   41.5           1      41.5
