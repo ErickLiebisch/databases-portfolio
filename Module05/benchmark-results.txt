@@ -1,0 +1,58 @@
+=== A) normalized: plan
+QUERY PLAN
+|--SCAN jp
+|--SEARCH j USING INTEGER PRIMARY KEY (rowid=?)
+|--SEARCH m USING INDEX sqlite_autoindex_machine_1 (machine_id=?)
+|--SEARCH p USING INDEX sqlite_autoindex_part_1 (part_no=?)
+`--USE TEMP B-TREE FOR GROUP BY
+=== B) denormalized: plan
+QUERY PLAN
+|--SCAN report_jobpart USING INDEX ix_report_machine
+`--USE TEMP B-TREE FOR GROUP BY
+=== A) normalized: 3 runs
+result_rows
+-----------
+        350
+Run Time: real 0.047242 user 0.046875 sys 0.000000
+result_rows
+-----------
+        350
+Run Time: real 0.045782 user 0.046875 sys 0.000000
+result_rows
+-----------
+        350
+Run Time: real 0.045157 user 0.046875 sys 0.000000
+=== B) denormalized: 3 runs
+result_rows
+-----------
+        350
+Run Time: real 0.055035 user 0.062500 sys 0.000000
+result_rows
+-----------
+        350
+Run Time: real 0.054725 user 0.031250 sys 0.015625
+result_rows
+-----------
+        350
+Run Time: real 0.055044 user 0.046875 sys 0.015625
+=== write: normalized (1 short row, ids only)
+Run Time: real 0.001862 user 0.000000 sys 0.000000
+Run Time: real 0.001406 user 0.000000 sys 0.000000
+=== write: denormalized (1 long row, every fact copied)
+Run Time: real 0.001628 user 0.000000 sys 0.000000
+=== update: move cnc-01 to Bielefeld (normalized: 1 row)
+Run Time: real 0.000090 user 0.000000 sys 0.000000
+changes: 1   total_changes: 4
+=== update: move cnc-01 to Bielefeld (denormalized: every copy)
+Run Time: real 0.001889 user 0.000000 sys 0.000000
+changes: 4000   total_changes: 4004
+=== storage
+                   design                      kb
+--------------------------------------------  ----
+normalized (machine + part + job + job_part)  7976
+           design               kb
+-----------------------------  -----
+denormalized (report_jobpart)  13760
+           design              kb
+----------------------------  -----
+flat original (flat_jobpart)  14532

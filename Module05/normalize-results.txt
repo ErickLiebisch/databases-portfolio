@@ -1,0 +1,6 @@
+machines  parts  jobs   job_parts
+--------  -----  -----  ---------
+      50     10  20000     200000
+flat_rows  normalized_rows
+---------  ---------------
+   200000           200000
