@@ -7,3 +7,5 @@
 .env
 Module01/telemetry.csv
 __pycache__/
+# Module 6 key-value store files (shelve)
+Module06/sessions*

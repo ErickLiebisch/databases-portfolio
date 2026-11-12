@@ -31,3 +31,4 @@ Database files (`*.db`, `*.duckdb`) are not committed (see [.gitignore](.gitigno
 - [Module 3: LLM-Assisted SQL & Query Profiling](Module03/README.md), [Reflection 3](Reflections/ref03.md)
 - [Module 4: Data Integrity, Constraints & Edge Triggers](Module04/README.md), [Reflection 4](Reflections/ref04.md)
 - [Module 5: Normalization vs. Denormalization Benchmarking Studio](Module05/README.md), [Reflection 5](Reflections/ref05.md)
+- [Module 6: Polyglot & Embedded Persistence](Module06/README.md), [Reflection 6](Reflections/ref06.md)

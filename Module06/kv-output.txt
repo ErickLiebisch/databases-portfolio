@@ -1,0 +1,4 @@
+﻿50,000 sessions
+shelve  set=5.322s get=0.262s
+sqlite  set=0.064s get=1.522s
+sqlite only - sessions per filter: [('city:0', 12500), ('city:1', 12500), ('city:2', 12500), ('city:3', 12500)]

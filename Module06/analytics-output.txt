@@ -1,0 +1,6 @@
+﻿parquet: [('cnc-02', 42.04, 3.168, 57600), ('cnc-03', 42.04, 2.55, 57600), ('cnc-01', 42.04, 2.398, 57600)]
+         runs [33.4, 4.1, 3.6] ms | median 4.1 ms
+sqlite : [('cnc-02', 42.04, 3.168, 57600), ('cnc-03', 42.04, 2.55, 57600), ('cnc-01', 42.04, 2.398, 57600)]
+         runs [28.5, 27.3, 27.8] ms | median 27.8 ms
+same result: True
+sizes  : telemetry.db 10,526,720 bytes | readings.parquet 1,163,448 bytes

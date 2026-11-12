@@ -1,0 +1,25 @@
+Error near line 20: CHECK constraint failed: json_valid(meta)
+=== 1. Query a path like a column
+  name     vendor
+---------  -------
+cnc-01     Siemens
+cnc-02     Fanuc
+molder-07  Arburg
+=== 2. The ->> operator is shorthand
+  name     fw   calibrated
+---------  ---  ----------
+cnc-01     4.2  2026-01-10
+cnc-02     3.9
+molder-07  8.1  2025-11-02
+=== 3. Expand one object into rows
+ name      key        value
+------  ----------  ----------
+cnc-01  vendor      Siemens
+cnc-01  firmware    4.2
+cnc-01  calibrated  2026-01-10
+=== 4. Expression index: same expression in WHERE -> SEARCH
+QUERY PLAN
+`--SEARCH device USING INDEX ix_device_vendor (<expr>=?)
+=== 5. Different expression (->> instead of json_extract) -> ?
+QUERY PLAN
+`--SCAN device
